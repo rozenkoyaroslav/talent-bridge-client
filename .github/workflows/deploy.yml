@@ -27,12 +27,11 @@ jobs:
           node-version: 20
           cache: npm
 
-      # npm prunes optional platform binaries that do not match the machine the
-      # lock file was generated on (npm/cli#4828), so a macOS-generated lock has no
-      # Linux rolldown/lightningcss binding and `npm ci` produces a tree that cannot
-      # build here. `npm install` resolves the binding for this platform while still
-      # honouring the locked versions of everything else.
-      - run: npm install --no-audit --no-fund
+      # The lock file is generated on macOS, and npm prunes optional binaries that do
+      # not match that platform (npm/cli#4828). package.json declares the Linux
+      # bundler bindings explicitly so they survive in the lock and `npm ci` produces
+      # a tree this runner can build with.
+      - run: npm ci
 
       # A project site is served from /<repo>/, so the bundle has to know its base.
       - run: npm run build
