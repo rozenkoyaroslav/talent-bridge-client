@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm test
+
+      # The demo runs entirely in the browser, so the only meaningful end-to-end
+      # check is driving the built bundle with a real one.
+      - run: npx playwright install --with-deps chromium
+
+      - name: Serve the built demo and drive it
+        run: |
+          npm run preview &
+          npx wait-on http://localhost:4173 --timeout 60000
+          npm run e2e
