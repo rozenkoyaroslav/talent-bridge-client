@@ -1,5 +1,8 @@
 # TalentBridge — client
 
+**[Live demo](https://rozenkoyaroslav.github.io/talent-bridge-client/)** — sign in with one
+click as a student, an employer or an admin.
+
 Frontend for [talent-bridge-api](https://github.com/rozenkoyaroslav/talent-bridge-api): a
 platform where students and graduates find internships and jobs, employers search
 candidates and book them, and admins moderate both sides.
@@ -61,6 +64,15 @@ npm run dev
 - **One endpoint fails on purpose** — the video interview upload rejects roughly one
   request in three, so error handling is visible rather than claimed.
 - **Latency is simulated** at 150–400 ms so skeletons and pending states are real.
+
+## Deployment
+
+The demo is a static bundle: `npm run build:pages` produces one, and
+[deploy.yml](.github/workflows/deploy.yml) publishes it to GitHub Pages on every push
+to `main`. A project site lives under `/<repo>/`, so the workflow passes that path as
+`VITE_BASE`, the router takes its `basename` from it, and the build copies
+`index.html` to `404.html` — Pages has no server-side routing, and without that
+fallback a deep link like `/candidates` would 404 instead of reaching the router.
 
 ## Commands
 

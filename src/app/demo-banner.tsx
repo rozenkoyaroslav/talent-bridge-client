@@ -29,7 +29,7 @@ export const DemoBanner = () => {
           const { resetDb } = await import('@/mocks/db');
           resetDb();
           sessionStorage.removeItem('talent-bridge-demo-session');
-          window.location.href = '/login';
+          window.location.href = `${import.meta.env.BASE_URL}login`.replace('//', '/');
         }}
       >
         Reset demo data

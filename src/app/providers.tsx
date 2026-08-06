@@ -20,7 +20,8 @@ const queryClient = new QueryClient({
 
 export const Providers = ({ children }: { children: ReactNode }) => (
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
+    {/* Matches the Vite base so the router works from a Pages subpath. */}
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AuthProvider>{children}</AuthProvider>
     </BrowserRouter>
   </QueryClientProvider>

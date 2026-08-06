@@ -11,7 +11,8 @@
     "build:demo": "VITE_API_MODE=mock tsc -b && VITE_API_MODE=mock vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "node e2e/demo-flows.mjs"
+    "e2e": "node e2e/demo-flows.mjs",
+    "build:pages": "VITE_BASE=/talent-bridge-client/ npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
